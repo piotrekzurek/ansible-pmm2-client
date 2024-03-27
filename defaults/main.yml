@@ -26,3 +26,4 @@ pmm2_client_mysql_enable_query_response_time: true
 pmm2_client_mysql_disable_tablestats: false
 pmm2_client_mysql_disable_tablestats_limit: 1000
 pmm2_client_mysql_enable_user_statistics: true
+mysql_socket: /run/mysqld/mysqld.sock
