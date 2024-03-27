@@ -25,7 +25,7 @@
 
 - name: Ensure python-pymysql package installed
   apt:
-    name: python-pymysql
+    name: python3-pymysql
     state: present
   when: "ansible_os_family == 'Debian'"
 
