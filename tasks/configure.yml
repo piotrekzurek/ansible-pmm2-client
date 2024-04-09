@@ -1,19 +1,20 @@
-- name: Check if pmm2-client configured
-  command: "pmm-admin list"
-  ignore_errors: yes
-  changed_when: false
-  register: pmm_admin_list
+- block:
+  - name: Check if pmm2-client configured
+    command: "pmm-admin list"
+    register: pmm_admin_list
 
-- name: Configure connection to pmm-server
-  command: >-
-    pmm-admin config
-    --server-insecure-tls
-    --server-url=https://{{ pmm2_client_server_user }}:{{ pmm2_client_server_password }}@{{ pmm2_client_server_host }}:{{ pmm2_client_server_port }}
-    {{ pmm2_client_node_address | default('') }}
-    {{ pmm2_client_node_type | default('') }}
-    {{ pmm2_client_node_name | default('') }}
-  when: pmm_admin_list.rc == 1
+  rescue:
+    - name: Configure connection to pmm-server
+      command: >-
+        pmm-admin config
+        --server-insecure-tls
+        --server-url=https://{{ pmm2_client_server_user }}:{{ pmm2_client_server_password }}@{{ pmm2_client_server_host }}:{{ pmm2_client_server_port }}
+        {{ pmm2_client_node_address | default('') }}
+        {{ pmm2_client_node_type | default('') }}
+        {{ pmm2_client_node_name | default('') }}
 
-- name: Configure services
-  include_tasks: configure_{{ item }}.yml
-  loop: "{{ pmm2_client_enabled_services }}"
+  always:
+    - name: Configure services
+      include_tasks: configure_{{ item }}.yml
+      loop: "{{ pmm2_client_enabled_services }}"
+      when: pmm_admin_list.rc == 0
