@@ -18,13 +18,26 @@
     state: present
     update_cache: yes
 
-- name: Ensure python2-PyMySQL package installed
+- name: Ensure python3-PyMySQL package installed for RH != 7
   yum:
     name: python3-PyMySQL
     state: present
-  when: "ansible_os_family == 'RedHat'"
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version != '7'
 
-- name: Ensure python-pymysql package installed
+- name: install  python3-pip dfor Centos7
+  yum:
+    name: python3-pip
+    state: present
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+
+- name: Ensure PyMySQL pip package installed for Centos7
+  pip:
+    name: pymysql
+    state: present
+    executable: pip3
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+
+- name: Ensure python3-pymysql package installed for Debian
   apt:
     name: python3-pymysql
     state: present
