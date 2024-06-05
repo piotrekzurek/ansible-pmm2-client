@@ -189,7 +189,7 @@
     pmm-admin add mysql
     --username={{ pmm2_client_mysql_user | quote }}
     --password={{ pmm2_client_mysql_password | quote }}
-    --service_name={{ pmm2_client_node_name + "-mysql" | quote | default(omit) }}
+    --service-name={{ pmm2_client_node_name + "-mysql" | quote | default(omit) }}
     {{ "--tls --tls-skip-verify" if pmm2_client_mysql_enable_tls else "" }}
     {{ "--disable-tablestats" if pmm2_client_mysql_disable_tablestats else "" }}
     {{ "--disable-tablestats-limit="+pmm2_client_mysql_disable_tablestats_limit if pmm2_client_mysql_disable_tablestats else "" }}
