@@ -5,7 +5,7 @@ pmm2_client_server_host: localhost
 pmm2_client_server_port: 443
 pmm2_client_node_address: ""
 pmm2_client_node_type: ""
-pmm2_client_node_name: ""
+pmm2_client_node_name: "{{ ansible_fqdn }}"
 
 pmm2_client_disable_log: false
 
