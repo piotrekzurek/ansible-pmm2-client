@@ -12,9 +12,13 @@
     state: present
   when: "ansible_os_family == 'Debian'"
 
+- name: percona-release enable pmm-client
+  shell:
+    percona-release enable pmm3-client
+    
 - name: Ensure that pmm2-client installed
   package:
-    name: pmm2-client
+    name: pmm-client
     state: present
     update_cache: yes
 
