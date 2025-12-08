@@ -15,6 +15,18 @@
 - name: percona-release enable pmm-client
   shell:
     percona-release enable pmm3-client
+  when: >
+    ansible_distribution == "Debian" and
+    ansible_distribution_release == "bookworm"
+
+
+
+- name: percona-release enable pmm-client experimental
+  shell:
+    percona-release enable pmm3-client experimental
+  when: >
+    ansible_distribution == "Debian" and
+    ansible_distribution_release == "trixie"  
     
 - name: Ensure that pmm2-client installed
   package:
